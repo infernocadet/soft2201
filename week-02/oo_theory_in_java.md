@@ -198,3 +198,123 @@ benefits:
 ## inheritance
 
 allows programmers to create subclasses by inheriting properties and methods fom existing classes (superclasses). subclasses inherit all accessible fields and methods from its superclass.
+
+java supports inheritance through the `extends` keyword.
+
+### inheritance of data
+
+a subclass inherits all non-private data for its superclass.
+
+- public
+- protected (protected data is accessible anywhere, but only by inherited classes)
+- data declare as private is not accessible
+- a subclass can override a method inherited from the superclass by providing a new implementation but with the same signature (**name, parameter types and return types**)
+
+#### method overloading vs overriding
+
+- overloading lets a class have several methods with the same name but different parameters, allowing varied actions based on parameters provided.
+
+take the following example:
+
+```java
+class Calculator {
+  int add(int a, int b ) {
+    return a + b;
+  }
+  int add(int a, int b, int c) {
+    return a + b + c;
+  }
+}
+
+class ScientificCalculator extends Calculator {
+  @Override
+  int add(int a, intb) {
+    return a + b + 10;
+  }
+}
+```
+
+scientific calculator inherits both methods, but it overrides the first method. the calculator class in general demonstrates method overloading, which is having the same method but different behaviour for different parameters.
+
+### constructor inheritance
+
+constructors are not inherited. if a superclass has multiple constructors with different parameters, the subclass does not inherit them. subclass needs its own constructors if the default one is not enough.
+
+- implicit call to superclass constructor: when a subclass constructor is invoked, the first statement is a call to the superclass's default constructor.
+- explicit call the superclass constructor: we can explicitly call a specific superclass constructor using the super keyword followed by arguments.
+
+## abstraction
+
+the process of hiding certain details and showing only essential information. achieved either through abstract classes or interfaces.
+
+### abstract classes
+
+these are defined using abstract keyword.
+
+abstract classes can contain both abstract methods and regular methods. cannot be instantiated directly.
+
+```java
+abstract class Animal {
+  public abstract void animalSound();
+  public void sleep() {
+    // do somethign
+  }
+}
+
+class Pig extends Animal {
+  public void animalSound() {
+    // sound
+  }
+}
+```
+
+java does not have multi-inheritance: interface is a way-out.
+
+an interface is completely abstract that is used to group related methods with empty bodies.
+
+interfaces can even inherit from other interfaces.
+
+```java
+interface Printable {
+  void print() // abstract method with no implementation. anything that implements this must provide implementation
+}
+
+interface Constants {
+  // declare constant variables (implicitly public, static and final)
+  int MAX_VALUE = 100;
+  String APP_NAME = "MyApp";
+}
+
+// take this next example
+interface Drawable {
+  void draw();
+}
+
+interface Resizeable extends Drawable {
+  void resize();
+}
+
+// resizable has two methods: draw and resize
+```
+
+## polymorphism
+
+it means to have many forms - occurs when we have many classes that are related to each other by inheritance or implementation. a method can behave different depending on the objects it is called on, or depending on the parameters passed to it.
+
+polymorphism in Java is achieved through overloading or overriding:
+
+- compile-time polymorphism (static polymorphism)
+- run-time polymorphism (dynamic polymorphism)
+
+### casting in polymorphism
+
+**upcasting**: invokes casting an object to one of its superclass types. being an implicit conversion, it is safe and dont implicitly, kind of like widening in the primitive types.
+
+`Shape Y = new Rectangle();`
+
+**downcasting**: cast an object to one of its subclass types, must be done explicitly due to risks.
+
+```java
+Shape Y = new Rectangle();
+Rectangle z = new Shape();
+```
