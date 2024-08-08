@@ -67,3 +67,43 @@ an `iterator` is an object which allows us to traverse through a collection, and
 
 we can create an explicit iterator by calling the `iterator()` method on the collection.
 the `iterator()` method returns an `Iterator` object for the collection. here, we are selecting the next object using `iterator.next()`. it ios safer because the iterator keeps track of the current position in the collection. the `remove()` method removes the last element returned by the iterator's `next()` method.
+
+### `printf()`
+
+i feel like `printf()` is how i should be formatting strings in general. the other option is `String.format()`, but anyway, you can use variables in the string using the `%` symbol:
+
+- `%d` - decimal
+- `%n` - new line
+- `%s` - string
+- `%f` - float
+
+### access modifiers
+
+there are three types of access modifiers when it comes to object/class fields/attributes:
+
+- `public`
+  - attributes can be accessed from any file and any package.
+- `private`
+  - attributes can only be accessed from object instances of the same class and same package.
+- `protected`
+  - attributes can only be accessed from object instances of either the same class or subclass or any object/file in the same package.
+
+### non-access modifiers
+
+for classes, we can use `final` or `abstract`:
+
+- `final`
+  - class cannot be inherited by other classes
+- `abstract`
+  - class cannot be used to create objects, but can be inherited from another class using the keyword `extends`
+
+for attributes and methods, we can use:
+
+- `final`
+  - attributes or methods cannot be overridden/modified
+- `static`
+  - attributes and methods belongs to the class rather than an object
+  - the static member is shared among all instances of the class. its like a global variable. so lets say there was a change to a static attribute belonging to a class. this means that all instances of that class have that attribute updated.
+  - because a static method belongs to the class instead of any actual instance, it can be called without creating an instance of that class. static methods can't access any instance variables or methods directly - only static fields and methods.
+- `abstract`
+  - can only be used in an abstract class. method will not have a body. body is provided by the subclass.
