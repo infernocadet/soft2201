@@ -341,6 +341,107 @@ every class should have a single responsibility and that responsibility should b
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/rect.png" width="350" height="auto">
 </p>
 
+here we can see there are two programs which use the rectangle, one draws it and one calculates it. but it actually violates the SRP. the GUI kit can change a lot - the implementation of the `draw()` method may change very often.
+
+if draw changes, we would have to recompile the computational geometry application - it doesn't use draw at all but because it is dependent on that rectangle we would have to update that program too.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/grec.png" width="350" height="auto">
+</p>
+
+here we can separate the responsibilities and create a geometric rectangle which will always have a stable method of calculating `area()`. we can create another class called rectangle, which contains the geometric rectangle and additional draw methods. then our graphical application and gui can use the drawable rectangle.
+
+### open/closed principle
+
+the **open/closed principle** is that you should be able to extend code without breaking it. this means not altering superclasses when you can do as well by adding a subclass. new subtypes of a class should not require changes to the superclass (maybe parents should not need to know about their children).
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ocp.png" width="350" height="auto">
+</p>
+
+take this for example, every time a new shape is added, the displayAll() function won't be able to draw it, cos it is particular to its subclasses.
+
+a better way is to use polymorphism - each item has its own draw method which is called at runtime through polymorphism mechanisms
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/pol.png" width="350" height="auto">
+</p>
+
+so here what is happening is we have an abstract class `Shape`, which details that any class which extends this abstract class must implement display() and remove(), which are abstract methods. we also have a `ShapeCollection` class which presumably holds a collection of Shapes, and this is an aggregation of Shape, which iterates through the collection and calls the inner display method.
+
+### liskov substitution principle
+
+in essence, **subtypes must be substitutable for their base types**.
+
+the idea of strong behavioural subtyping:
+
+- for each object `o1` of type `S`, there is an object `o2` of type `T` such that for all programs `P` defined in terms of `T`, the behavioour of `P` is unchanged when `o1` is substituted for `o2` then `S` is a subtype of `T`.
+
+this principle helps to decide if an is-a relationship is appropriate. if behaviour is the exact same, then an "IS-A" relationship may be appropriate.
+
+### interface segregation principle
+
+this principle deals with the disadvantages of "fat" interfaces. classes who interfaces are not cohesive have "fat" interfaces.
+
+in other words, the interfaces of the class can be broken up into groups of methods - where each group serves a different set of clients. thus, some clients use one group of methods, and other clients use the other groups.
+
+**clients should not have to implement interfaces it doesnt need**.
+
+allowing for the implementation of multiple interfaces reflects this principle.
+
+### dependency inversion principle
+
+high-level modules should not depend on low-level modules - both should depend on abstractions. abstractions should not depend on details - details should depend on abstractions.
+
+### general responsibility assignment software pattern (GRASP)
+
+responsibility driven design - responsibility is a contract or obligation of a class:
+
+- what must a class "know" (knowing responsibility)
+  - private encapsulated data
+  - related objects
+  - things it can derive or calculate
+- what must a class "do" (doing responsibility)
+  - take action
+  - initiate action in other objects
+  - control/coordinate actions in other objects
+- responsibilities are assigned to classes of objects during object design
+
+there are five basic principles:
+
+- creator
+- information expert
+- high cohesion
+- low coupling
+- controller
+
+#### creator principle
+
+problem: who creates an `A` object?
+solution: assign class `B` the responsibility to create an isntance of class `A` if one of these is true:
+
+- `B` contains `A`
+- `B` records `A`
+- `B` closely uses `A`
+- `B` has the initialising data for `A`
+
+#### information expert principle
+
+problem: what is a general principle of assigning responsibilities to objects?
+solution: assign a responsibility to the class that has the information needed to fulfill it.
+
+#### high cohesion
+
+relates to how strongly related and focused the responsibilities of an element are.
+
+formal definition (calculation) of cohesion:
+
+- cohesion of two methods is defined as the intersection of the sets of instance variables used by the methods.
+
+#### controller
+
+object controls the ui or overall system
+
 # textbook readings
 
 > from UML Distilled, 3rd Edition

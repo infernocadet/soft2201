@@ -1,0 +1,29 @@
+The Sydney-Melbourne train is currently at Central station.
+3 passengers board the train at this station. They are as follows:
+Alice
+Bob
+Carol
+There are now 3 passengers aboard this train.
+
+The Sydney-Melbourne train is currently at Yass station.
+1 passenger departs the train at this station. They are as follows:
+Alice
+2 passengers board the train at this station. They are as follows:
+David
+Eve
+There are now 4 passengers aboard this train.
+
+The Sydney-Melbourne train is currently at Wagga Wagga station.
+2 passengers depart the train at this station. They are as follows:
+Bob
+David
+1 passenger boards the train at this station. They are as follows:
+Frank
+There are now 3 passengers aboard this train.
+
+The Sydney-Melbourne train is currently at Southern Cross station.
+3 passengers depart the train at this station. They are as follows:
+Carol
+Eve
+Frank
+There are now 0 passengers aboard this train.
