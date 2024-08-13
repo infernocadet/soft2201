@@ -194,6 +194,153 @@ in java context, this shows the relationship between an interface and its implem
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ir.png" width="350" height="auto">
 </p>
 
+the line is dotted/dashed and still has that arrow.
+
+### dependency
+
+a dependency exists between two elements if changes to the definition of one element (the supplier) may cause changes to the other (client)
+
+reasons:
+
+- class send messages to another
+- one class has another as its data
+- one class mentions another as a parameter to an operation
+- one class is a superclass or interace of another
+
+we want to be selective when describing dependencies
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/dep.png" width="350" height="auto">
+</p>
+
+## sequence diagram
+
+illustrates time-ordering of messages in a fence format (object is added to right)
+
+the participants in interactions are represented using lifeline boxes - boxes represent objects.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/sd.png" width="350" height="auto">
+</p>
+
+### messages
+
+standard message syntax in uml -
+`ReturnVar = message(parameter : parameterType): returnType`
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/msg.png" width="350" height="auto">
+</p>
+
+different ways to visualise a method returning data:
+
+- we can label the variable of the data being returned
+- or we can show the getter method and then the object sending info back (the return line would be with dashed lines)
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ret.png" width="350" height="auto">
+</p>
+
+can also call helper methods or just to do with any methods only accessible by the class and that they have to call themselves:
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/hel.png" width="350" height="auto">
+</p>
+
+### object creation/destruction
+
+we can't assume that objects are already there, sometimes we will have to create objects.
+
+a creation line is a dashed line with an arrow, and it should point to a class lifeline box placed at a lower height (as it was created further in time)
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/cre.png" width="350" height="auto">
+</p>
+
+object destruction:
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/des.png" width="350" height="auto">
+</p>
+
+### frames
+
+diagram frames in UML sequence diagrams
+
+- supports conditional and looping construct
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/fra.png" width="350" height="auto">
+</p>
+
+there are different frame operators (the name in the corner of the frame)
+
+| frame operator | meaning                                                                     |
+| -------------- | --------------------------------------------------------------------------- |
+| alt            | alt fragment for mutual exclusion conditional logic expressed in the guards |
+| loop           | loop fragment while guard is true                                           |
+| opt            | optional frament that executes if guard is true                             |
+| par            | parallel fragments that execute in parallel                                 |
+| region         | critical region within which only one thread can run                        |
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/foo.png" width="350" height="auto">
+</p>
+
+in the above photo:
+
+```java
+public class Foo{
+  Bar bar = new Bar();
+  public void myMethod(){
+    bar.xx();
+    if (color.equals("red")) {
+      bar.calculate();
+    }
+    bar.yy();
+  }
+}
+```
+
+for conditional methods (i.e., if else methods):
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ast.png" width="350" height="auto">
+</p>
+
+### particular use of sequence diagram
+
+sequence diagram can be used at system level to show the interaction between an actor and the system
+
+- visualises steps in a use case
+- this is referred to as system sequence diagram
+
+one diagram can be used to show one particular scenario of a use case, the events that external actors generation, their order and intersystem event
+
+you can describe what a system does without explaining why
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/sys.png" width="350" height="auto">
+</p>
+
+## SOLID principles
+
+SOLID is an acronym representing 5 basic principles of OOP.
+
+1. Single Responsibility Principle
+2. Open/Closed Principle
+3. Liskov Substitution Principle
+4. Interface Segregation Principle
+5. Dependency Inversion Principle
+
+### single responsibility principle
+
+every class should have a single responsibility and that responsibility should be entirely met by that class. a class should only have one reason to change.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/rect.png" width="350" height="auto">
+</p>
+
 # textbook readings
 
 > from UML Distilled, 3rd Edition
