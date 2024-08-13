@@ -69,7 +69,7 @@ fully-dressed: all steps and variations written in detail with supporting sectio
   - starts with a verb: verb phrase such as "purchase good" "withdraw money"
 
 <p align="center">
-  <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/stor.png" width="350" height="auto">
+  <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ucd.png" width="350" height="auto">
 </p>
 
 system actors have the arrows next to their name: `<<system>>`
@@ -369,3 +369,34 @@ an extension names a condition that results in different interactions from those
 ### user stories
 
 user stories help to describe requirements.
+
+# tutorial notes
+
+if a method in a uml diagram has an abstract method, it must be an abstract class. we should put `<<abstract>>` on top of the name.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/abs.png" width="350" height="auto">
+</p>
+
+inheritance is a filled in arrow with a dashed line, directional association is just an arrow head tip.
+
+## use case for student enrolling in a unit of study using Sydney student.
+
+```
+Enrol Unit
+  Primary Actor: University Student
+  Preconditions: The student has access to their unikey and password, and currently enrolled in a degree course.
+  Main Success Scenario:
+    1. Student logs in to Sydney Student
+    2. The system presents a home screen with menus
+    3. The student chooses the option to view enrolments
+    4. The system presents units that the student is eligible for in their degree
+    5. The student selects units to enrol in
+    6. The system prompts the student to confirm selections
+    7. The system displays summary of enrolled units with completion message
+  Extensions:
+    Student selects a subject they are not eligible for:
+      System returns a message saying they are not eligible for unit with explanation
+    Student selects over 24 credit points:
+      System returns warning message notifying student that they are over 24 credit points
+```
