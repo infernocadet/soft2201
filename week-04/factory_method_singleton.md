@@ -225,3 +225,63 @@ factories create products, but the actual concrete classes which are instantiate
 <p align="center">
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/typ.png" width="auto" height="auto">
 </p>
+
+### coming back to dependency inversion principle
+
+because the og pizzastore was making these instances of pizza, it was depending on a concrete class. this means that if any of the subclasses were to change, it would have to change (potentially).
+
+this is what it means by high-level components should not depend on low-level components - they should both depend on abstractions. this is why we just depend on the abstract Pizza class, and let another class take care of making the actual Pizzas.
+
+so, in order to **inverse dependencies**, we make Pizza an abstract class. The concrete pizza classes depend on the Pizza abstract as they implement the Pizza interface (in a general sense). now PizzaStore depends only on Pizza, the abstract class.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/wow.png" width="auto" height="auto">
+</p>
+
+## singleton design pattern
+
+intent:
+
+- ensure a class only has one instance, and provide a global point of access to it
+  motivation:
+- make the class itself responsible for keeping track of its sole instance (intercept requests to create new objects, and provide a way to access the singular instance)
+
+### structure
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ing.png" width="auto" height="auto">
+</p>
+
+participants:
+
+- defines an `instance()` operation that lets client access its unique instance. `instance()` is a class operation.
+- may be responsible for creating its own unique instance.
+
+```java
+public class Singleton {
+  private static Singleton uniqueInstance; // static variable to hold one instance of the class Singleton
+
+  private Singleton() {
+    // the constructor is private so other classes can't use it
+  }
+
+  public static Singleton getInstance() { // getInstance() method allows us to instantiate the class and return an instance of it
+    if (uniqueInstance == null) { // uniqueInstance holds one instance, it is a static variable.
+      uniqueInstance = new Singleton();
+    }
+    return uniqueInstance;
+  }
+}
+```
+
+getInstance() is static, meaning it is a class method - can conveniently access this method from anywhere in the code using Singleton.getInstance() - like accessing a global variable.
+
+## singleton usages and variations
+
+take this controller class of a chocolate boiler, which tracks the state of the boiler, two things in particular - if it is empty and if it is boiled.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/boi.png" width="auto" height="auto">
+</p>
+
+we only really want to have one controller to make sure the state of the boiler is kept consistent.
