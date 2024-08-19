@@ -284,4 +284,45 @@ take this controller class of a chocolate boiler, which tracks the state of the 
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/boi.png" width="auto" height="auto">
 </p>
 
-we only really want to have one controller to make sure the state of the boiler is kept consistent.
+we only really want to have one controller to make sure the state of the boiler is kept consistent. we want to make it into a singleton - a singel controller.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ton.png" width="auto" height="auto">
+</p>
+
+### multithreading method execution
+
+in the same JVM, we can start more than one thread, and each thread can run code, and code could run getInstance().
+
+if two threads call the method simultaneously, there is no guarantee we only get a single copy.
+
+what we do is we can add the `synchronized` keyword to `getInstance()`, meaning we force every thread to wait its turn before it can enter the method.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/syn.png" width="auto" height="auto">
+</p>
+
+this is only useful the first time - once we have set the uniqueInstance variable to an instance of the Singleton we do not need to synchronise this method. it is unneeded overhead.
+
+### eager initialisation
+
+we can just create an instance of Singleton in a static initialiser. this is thread safe.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/eag.png" width="auto" height="auto">
+</p>
+
+### effective way to implement Singleton
+
+```java
+public enum Singleton {
+  UNIQUE_INSTANCE;
+  // other useful fields/methods
+}
+
+public class SingletonClient {
+  public static void main(String[] args) {
+    Singleton singleton = Singleton.UNIQUE_INSTANCE;
+  }
+}
+```
