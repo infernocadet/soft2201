@@ -197,3 +197,31 @@ the ConcreteCreator class implements the factory method - this method produces p
   - declares factory method, returning an object of type Product
 - ConcreteCreator
   - overrides the factory method to return an instance of ConcreteProduct
+
+### intent
+
+we want to define an interface for creating an object, but let subclasses decide which class to instantiate. let a class defer instantiation to subclasses.
+
+applicability:
+
+- a class can't anticipate the class of objects it must create
+- a class wants it subclasses to specify the objects it creates
+- classes delegate responsibility to one of several helper subclasses, and you want to localise the knowledge of which helper subclass is delegate
+
+### creator classes
+
+our abstract creator class defines an abstract factory method (in our context, `createPizza()`) that the subclasses will have to implement to produce products. the creator will also contain code that depends on the abstract Product (produced by a subclass). the creator should never really know which concrete product was actually produced.
+
+classes that produce products are called concrete creators.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/chic.png" width="auto" height="auto">
+</p>
+
+### product classes
+
+factories create products, but the actual concrete classes which are instantiated are subclasses of the abstract class.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/typ.png" width="auto" height="auto">
+</p>
