@@ -154,3 +154,46 @@ since the simple factory is a class with a single method, we can look at making 
 now we've made PizzaStore abstract.
 
 our factory method is also now abstract in PizzaStore.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/suc.png" width="auto" height="auto">
+</p>
+
+in this case, we allow the subclass to decide - each subclass provides an implementation of the `createPizza()` method.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/chi.png" width="auto" height="auto">
+</p>
+
+### a test class
+
+we would create two different stores, then use one store to make Ethan's order and then Joels.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ptest.png" width="auto" height="auto">
+</p>
+
+## factory method defined
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/fms.png" width="auto" height="auto">
+</p>
+
+creator is a class which contains the implementations for all of the methods to manipulate products, except the factory method. all Creator subclasses must implement their own factory method.
+
+the ConcreteCreator class implements the factory method - this method produces products. ConcreteCreator is responsible for creating one or more concrete products - the only class that has the knowledge of how to create these products. the concrete products made are subclasses of an abstract Product class/interface so that the classes that use the products refer to the abstract class, not the concrete one.
+
+### the factory method itself
+
+`abstract Product factoryMethod(String type)` the factory method is abstract - subclasses are counted on to handle object creation. it returns a Product that is used in methods defined in the superclass. the factory method isolates the client (code in superclass, like orderPizza()) from knowing what kind of concrete Product is actually made.
+
+### participants
+
+- product
+  - defines the interface of objects the factory method create
+- concreteProduct
+  - implements Product interface
+- Creator
+  - declares factory method, returning an object of type Product
+- ConcreteCreator
+  - overrides the factory method to return an instance of ConcreteProduct
