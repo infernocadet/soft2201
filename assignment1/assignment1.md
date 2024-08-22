@@ -59,7 +59,8 @@ fruit will also appear in the maze at certain milestones and rewards the player 
 
 we have to write a use case which models the game scenario:
 
-> [!IMPORTANT] > **Player directs Pac-Man to eat a ghost.**
+> [!IMPORTANT]
+> **Player directs Pac-Man to eat a ghost.**
 
 in use case:
 
@@ -70,7 +71,8 @@ in use case:
 
 consider the following scenario:
 
-> [!IMPORTANT] > **Player loses a game of Pac-Man.**
+> [!IMPORTANT]
+> **Player loses a game of Pac-Man.**
 
 based on this scenario, design the corresponding sequence diagram which illustrates all important interactions among participating actors and system relevant to the game
 
