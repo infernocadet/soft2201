@@ -107,3 +107,84 @@ for attributes and methods, we can use:
   - because a static method belongs to the class instead of any actual instance, it can be called without creating an instance of that class. static methods can't access any instance variables or methods directly - only static fields and methods.
 - `abstract`
   - can only be used in an abstract class. method will not have a body. body is provided by the subclass.
+
+## 23 aug 2024
+
+### `super` keyword
+
+we can use the `super` keyword to call a parent class of a subclass.
+
+```java
+class Animal {
+    public void makeSound(){
+        System.out.println("Making a sound: ");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void makeSound(){
+        super.makeSound();
+        System.out.println("Woof!");
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        Animal myDog = new Dog();
+        Animal animal = new Animal();
+        animal.makeSound();
+        myDog.makeSound();
+
+    }
+}
+// output:
+// Sound:
+// Sound:
+// Woof
+```
+
+here, the `Animal` class implements a method `makeSound()` that the Dog class will inherit. we can see here that Dog actually overrides the `makeSound()` method implementation, but using the super keyword, we can access the parent class' implementation of `makeSound()`. the `super` keyword can be used to access methods and constructors from the parent class that may have been overridden or hidden in the child class.
+
+### public class vs. class
+
+in java, the difference between `public class ClassName` and `class ClassName` is the access level and visibility of the class.
+
+in `public class ClassName`, a class declared as `public` is accessible from any other class in any package. if a class is declared as `public` the file name must match the class name exactly.
+
+- e.g., if we declare `public class MyClass`, the file must be named `MyClass.java`
+
+in `class Classname`, this is defaulted to `package-private` access. means the class is accessible only in the same package. this is used for helper/utility classes that are meant to be used only in the package.
+
+### packages
+
+i was wondering why in the third exercise, we had to specify package `application.classifiers` in the `Colour.java` file:
+
+```java
+package application.classifiers;
+
+public enum Colour {
+    RED,
+    YELLOW,
+    GREEN;
+
+    @Override
+    public String toString(){
+        return super.toString().toLowerCase();
+    }
+}
+```
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/str.png" width="auto" height="auto">
+</p>
+
+this package line specifies the package to which the `Colour` enum belongs:
+
+- logical grouping: packages group related classes such as enums, interfaces etc
+- packages help avoid naming conflicts between classes, e.g. if we had a Colour enum in a different package such as `application.ui`. both can coexist like this using the full name including package.
+- classes in a package with default access (package-private) mean that they can only be accessed by other classes within the same package.
+
+### nested classifier
+
+a class or interface in UML

@@ -1,0 +1,42 @@
+@startuml
+actor Player
+participant "Game System" as GameSystem
+participant "Pac-Man" as PacMan
+participant "Ghosts" as Ghosts
+
+Player -> GameSystem: Start Game
+activate GameSystem
+
+GameSystem --> PacMan **: Create Pac-Man
+
+GameSystem --> Ghosts **: Create Ghosts
+
+GameSystem -> PacMan: Place Pac-Man at start position
+activate PacMan
+GameSystem -> Ghosts: Place Ghosts at start positions
+activate Ghosts
+GameSystem -> Player: Load Game Board
+activate Player
+
+loop Until all lives are lost
+    Player -> PacMan: Move Pac-Man (left/right/up/down)
+    PacMan -> GameSystem: Update Position
+    GameSystem -> Ghosts: Move Ghosts
+
+    opt Pac-Man collides with Ghost NOT in FRIGHTENED mode
+        GameSystem -> Player: Lose a life
+        GameSystem -> PacMan: Respawn Pac-Man
+        GameSystem -> Ghosts: Respawn Ghosts
+    end
+end
+
+deactivate Ghosts
+deactivate PacMan
+
+GameSystem -> Player: End Game
+destroy PacMan
+destroy Ghosts
+
+deactivate Player
+deactivate GameSystem
+@enduml

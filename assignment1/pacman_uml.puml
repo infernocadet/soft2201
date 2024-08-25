@@ -1,0 +1,173 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+interface Movable <<interface>>{
++ {abstract} move(direction: Direction): void
++ {abstract} resetPosition(): void
+}
+
+abstract GameElement <<abstract>>{
+- position: Point
+- points: int
++ getPoints(): int
++ {abstract} interact(pacMan: PacMan): void
+}
+
+class Pellet extends GameElement{
++ interact(pacMan: PacMan): void
+}
+
+class PowerPellet extends GameElement{
++ interact(pacMan: PacMan): void
+}
+
+class Cherry extends GameElement {
++ interact(pacMan: PacMan): void
+}
+
+abstract Character <<abstract>> implements Movable{
+- position: Point
+- speed: float
++ getPosition: Point
++ {abstract} move(direction: Direction): void
++ {abstract} resetPosition(): void
+}
+
+class Ghost extends Character{
+- name: String
+- mode: Mode
++ move(direction: Direction): void
++ resetPosition(): void
++ changeMode(mode: Mode): void
+}
+
+class PacMan extends Character{
+- lives: int
+- score: int
++ move(direction: Direction): void
++ resetPosition(): void
++ eatPellet(): void
++ loseLife(): void
+}
+
+class GameApplication {
+    - controller: GameController
+    - inputHandler: InputHandler
+    - collisionManager: CollisionManager
+    - gameState: GameState
+}
+
+class GameController {
+    - level: Level
+    - gameState: GameState
+    + startGame(): void
+    + nextLevel(): void
+    + handleGameOver(): void
+}
+
+class InputHandler {
+    + processInput(): void
+    + movePacMan(): void
+}
+
+class CollisionManager {
+    + detectCollision(): void
+    + handleCollision(pacMan: PacMan, element: GameElement): void
+}
+
+class GameState {
+    - lives: int
+    - score: int
+    - currentLevel: int
+    + getLives(): int
+    + updateScore(): void
+}
+
+enum Direction <<enumeration>>{
+UP
+DOWN
+LEFT
+RIGHT
+}
+
+class Point{
+- x: int
+- y: int
++ getX(): int
++ getY(): int
++ setX(): int
++ setY(): int
++ touches(other: Point): boolean
+}
+
+
+
+class LevelConfig {
+- levelNo: int
+- pacManSpeed: float
+- ghostConfig: GhostConfig
+}
+
+class GhostConfig {
+- chaseSpeed: float
+- scatterSpeed: float
+- modeLengths: Map<String, int>
+}
+
+class Level {
+- levelNo: int
+- pacManSpeed: double
+- ghostConfig: GhostConfig
+- levelConfig: LevelConfig
+- maze: Maze
++ initialiseLevel(): void
+}
+
+class LevelLoader {
+- configFile: String
++ loadLevelConfig(levelNo: int): LevelConfig
+}
+
+class MazeLoader {
++ loadMaze(String fileName): Maze
+}
+
+class Maze {
+- grid: char[][]
+- width: int
+- height: int
++ getCell(position: Point
++ updateCell(position: Point, value: char): void
++ getPacManStart(): Point
++ getGhostStart(): List<Point>
+}
+
+GameApplication --> GameController
+GameApplication --> InputHandler
+GameApplication --> CollisionManager
+GameApplication --> GameState
+
+GameController --> Level : follows
+GameController --> GameState : tracks
+
+InputHandler --> PacMan : moves
+
+CollisionManager --> GameState : updates
+CollisionManager --> GameElement : acts upon
+CollisionManager --> PacMan : tracks
+
+Character --> Point
+
+GameElement --> Point
+GameElement --> PacMan : interacts with
+
+Movable --> Direction
+
+GhostConfig --* LevelConfig : is part of
+Level *-- LevelConfig : needs
+Level *-- Maze : needs
+
+LevelLoader --> LevelConfig : creates
+MazeLoader --> Maze : creates
+@enduml
