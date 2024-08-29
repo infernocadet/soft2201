@@ -188,3 +188,44 @@ this package line specifies the package to which the `Colour` enum belongs:
 ### nested classifier
 
 a class or interface in UML
+
+## 29 aug 2024
+
+### eager initialisation in Singleton pattern
+
+i was looking at how eager initialisation in the Singleton pattern works, i understand that for lazy initialisation, we would just have create an instance of the Singleton when it is first called on or return the already existing instance:
+
+```java
+public class Singleton{
+  private static Singleton instance;
+
+  private Singleton(){
+    // private constructor which prevents outside instantiation
+  }
+
+  public static Singleton getInstance(){
+    if (instance == null) {
+      instance = new Singleton();
+    }
+    return instance;
+  }
+}
+```
+
+and then with eager initialisation, we actually straight out just make it when we load the class, by declaring it in the attributes of the class:
+
+```java
+public class Singleton{
+  private static final Singleton instance = new Singleton();
+
+  private Singleton(){
+    // constructor whatever, its private anyway
+  }
+
+  public static Singleton getInstance(){
+    return instance;
+  }
+}
+```
+
+just was wondering what the static keyword meant - it means that the variable or method it is modifying is associated with the class itself, not with an instance of the class. this is good because only the class knows the specific instance. this instance variable belongs to the class Singleton itself, not to any object of the class - as a result, there is only one copy of the variable. the final keyword ensures that the instance variable can only be assigned once as well.
