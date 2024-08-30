@@ -336,3 +336,65 @@ observer pattern achieves loose coupling:
 - changes to either the subject or an observer will not affect the other
 
 ## redesigning the weather app
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ops.png" width="auto" height="auto">
+</p>
+
+here we can see that we have an `Observer` interface which declares an `update()` method. all of our displays implement this interface, seen through a dashed line with a hollow arrow. they implement that `update()` method.
+
+there is a `Subject` interface as well, which defines methods like `registerObserver()`, `removeObserver()` and `notifyObserve()`. this interface provides the necessary structure to be able to update observers about changes. there is a solid line with a filled arrow from Subject to Observer, which indicates a unidirectional association - the subject class has a dependency on the observer interface - meaning it references to observers. observers do not necessarily know about the subject?
+
+our WeatherData class implements subject, with its own methods as well. each of the concrete displays have an association with WeatherData,
+
+### defining the interfaces
+
+```java
+public interface Subject {
+  public void registerObserver(Observer o);
+  public void removeObserver(Observer o);
+  // these methods take an observer as an argument
+  public void notifyObservers();
+}
+
+public interface Observer {
+  public void update(float temp, float humidity, float pressure);
+}
+
+public interface DisplayElement {
+  public void display();
+}
+```
+
+here is our actual subject concrete class:
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/sj.png" width="auto" height="auto">
+</p>
+
+you might be thinking how do the classes know about the WeatherData object? when these classes are created or instantiated, they will have that WeatherData object passed into their constructor:
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/oo.png" width="auto" height="auto">
+</p>
+
+connecting them:
+
+```java
+public class WeatherStation {
+
+  public static void main(String[] args) {
+    // create weatherdata obj
+    WeatherData weatherData = new WeatherData();
+
+    // create our displays and pass the WD obj
+    CurrentConditionsDisplay currentDisplay = new CurrentConditionsDisplay(weatherData);
+    StatisticsDisplay statisticsDisplay = new StatisticsDisplay(weatherData);
+
+    weatherData.setMeasurements(80, 65, 30.4f); // sim weather measurements
+
+  }
+}
+```
+
+right now our actual interface is a bit inflexible - espeically with the `update()` method. right now we assume it will always take the same three parameters, but what if that changes
