@@ -397,4 +397,12 @@ public class WeatherStation {
 }
 ```
 
-right now our actual interface is a bit inflexible - espeically with the `update()` method. right now we assume it will always take the same three parameters, but what if that changes
+right now our actual interface is a bit inflexible - espeically with the `update()` method. right now we assume it will always take the same three parameters, but what if that changes? instead, our observers will take the information straight from the `WeatherData` object that they have reference to since their instantiation.
+
+```java
+public void update() {
+  this.temperature = weatherData.getTemperature();
+  this.humidity = weatherData.getHumidity();
+  display();
+}
+```
