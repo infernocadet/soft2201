@@ -229,3 +229,9 @@ public class Singleton{
 ```
 
 just was wondering what the static keyword meant - it means that the variable or method it is modifying is associated with the class itself, not with an instance of the class. this is good because only the class knows the specific instance. this instance variable belongs to the class Singleton itself, not to any object of the class - as a result, there is only one copy of the variable. the final keyword ensures that the instance variable can only be assigned once as well.
+
+## 30 aug 2024
+
+### some tutorial notes on prototype and observer creational patterns
+
+prototype pattern allows us to create new instances by copying existing ones - we use a template object as a baseline. we copy the state of the object rather than make a new object and set its attributes.

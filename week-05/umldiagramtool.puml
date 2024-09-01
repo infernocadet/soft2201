@@ -1,0 +1,120 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+interface UMLShape <<interface>> {
++ draw(): void
++ clone(): UMLShape
+}
+
+enum UMLShapeType {
+GENERALISATION
+IMPLEMENTATION
+USE_CASE
+ACTOR
+USE_CASE_DIAGRAM
+UML_CLASS
+BASIC_LINE
+}
+
+
+class UMLShapeCollection {
+- shapes : HashMap<UMLShapeType, UMLShape>
++ addShape(type : UMLShapeType, shape : UMLShape): void
+- getShape(type : UMLShapeType) : UMLShape
+}
+
+class Line implements UMLShape {
+- {static} idCount : long = 1
+- style : String
+- startArrow: String
+- endArrow : String
+- id : long {readOnly}
+
++ «Create» Line(style: String, startArrow: String, endArrow: String) : Line
++ draw() : void
++ clone() : UMLShape
++getStyle() : String
++setStyle(style: String) : void
++getStartArrow() : String
++setStartArrow(startArrow: String) : void
++getEndArrow() : String
++setEndArrow(endArrow: String) : void
+}
+
+class Ellipse implements UMLShape {
+- {static} idCount: long = 1
+- a: double
+- b: double
+- text: String
+- id: long {readOnly}
++ <<Create>> Ellipse(a: double, b: double, text: String): Ellipse
++ <<Create>> Ellipse(a: double, b: double): Ellipse
++draw() : void
+  +clone() : UMLShape
+  +getA() : double
+  +setA(a: double) : void
+  +getB() : double
+  +setB(b: double) : void
+  +getText() : String
+  +setText(text: String) : void
+}
+
+class Container implements UMLShape {
+  - {static} idCount: long = 1
+  - shapes: List<UMLShape>
+  - label: String
+  - id: long {readOnly}
+
+  + «Create» Container(shapes: List<UMLShape>, label: String): Container
+  + draw(): void
+  + clone(): UMLShape
+  + getShapes(): List<UMLShape>
+  + setShapes(shapes: List<UMLShape>): void
+  + getLabel(): String
+  + setLabel(label: String): void
+}
+
+class Box implements UMLShape {
+  - {static} idCount: long = 1
+  - width: double
+  - height: double
+  - text: String
+  - id: long {readOnly}
+  
+  + «Create» Box(width: double, height: double, text: String): Box
+  + «Create» Box(width: double, height: double): Box
+  + draw() : void
+  + clone() : UMLShape
+  + getWidth() : double
+  + setWidth(width: double) : void
+  + getHeight() : double
+  + setHeight(height: double) : void
+  + getText() : String
+  + setText(text: String) : void
+}
+
+class UMLDiagramTool{
+- shapeCollection: UMLShapeCollection {readOnly}
++ <<Create>> UMLDiagramTool(shapeCollection: UMLShapeCollection): UMLDiagramTool
++ createShape(type: UMLShapeType): void
+}
+
+class UMLDiagramToolTest{
+- {static} getUseCaseDiagramTemplate(): UMLShape
+- {static} getActorTemplate(): UMLShape
+- {static} getUMLClassTemplate(): UMLShape
++ {static} getUMLShapeCollection(): UMLShapeCollection
++ {static} main(args: String[]): void
+}
+
+UMLShapeCollection o-- UMLShape
+UMLShapeCollection --> UMLShapeType
+UMLDiagramTool "1" --> "0..*" UMLShapeCollection
+UMLDiagramToolTest "1..*" --> "0" UMLShapeCollection
+UMLDiagramToolTest --> UMLShape
+UMLDiagramToolTest --> UMLShapeType
+UMLDiagramToolTest "1..*" --> "0" UMLDiagramTool
+Container *-- UMLShape
+
+@enduml
