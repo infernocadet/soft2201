@@ -233,3 +233,41 @@ the CareTakers are the concretecommands which hold reference to the originator, 
 <p align="center">
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ccm.png" width="auto" height="auto">
 </p>
+
+## keeping a history of changes
+
+version history consists of many memento objects belonging to the same originator
+
+the caretaker can usually keep track of a list or stack to store mementos in order
+
+### texteditor example
+
+in this example, a text editor has a text file and a text memento.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/ome.png" width="auto" height="auto">
+</p>
+
+### the caretaker in this scenario
+
+the caretaker here would be the TextEditor - so the TextEditor itself contains "mementos" of textfiles that are active on the system.
+
+it holds a Stack of Memento objects.
+
+```java
+public void changeContent(String newContent) {
+  mementoStack.push(tFile.createMemento());
+  tFile.update(newContent)
+}
+
+public void undo() {
+  if (mementoStack.size() > 1) {
+    TextMemento tm = mementoStack.pop();
+    tFile.setMemento(tm);
+  }
+}
+```
+
+here, whenever the text editor changes the content of a file, it'll first create a memento of that file, and push it onto the memento stack, then itll actually update the file.
+
+then to undo, it'll pop a memento off the stack and then set the file to that memento.
