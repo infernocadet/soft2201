@@ -271,3 +271,18 @@ public void undo() {
 here, whenever the text editor changes the content of a file, it'll first create a memento of that file, and push it onto the memento stack, then itll actually update the file.
 
 then to undo, it'll pop a memento off the stack and then set the file to that memento.
+
+## memento and prototype
+
+memento is a behavioural pattern
+
+- intent is to provide a way to save and restore an object's internal states
+- this memento class does not have any type relationship with its Originator
+- it only saves some parts of the states of the object
+
+prototype is a creational pattern
+
+- provides a way to use an existing object as a blueprint to create other object
+- prototype and its copies are object of the same class
+
+however, both need to pay attention to the issue of shallow and deep copy with respect to non-primitive mutable fields.
