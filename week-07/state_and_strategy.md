@@ -69,3 +69,69 @@ there are three important states that we can see with this
 <p align="center">
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/gst.png" width="auto" height="auto">
 </p>
+
+quarter == true (has quarters)
+quarter == false && count > 0 (no quarters)
+count == 0 (out of gumballs)
+
+it is easy to see these transitions as they are mapped to methods in the `gumballmachine` class.
+
+### state pattern structure
+
+the state pattern provides an easy way to map the state transition diagram to code
+purpose:
+
+- allow an object to change its behaviour when internal state changes
+- the object will appear to change its class when state changes
+- can use subtypes of classes with different functionality to represent different states
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/stp.png" width="auto" height="auto">
+</p>
+
+at any time, a context will be in a particular state - which will be a concrete state implementing a state interface.
+
+encapsulate each state in its own class - which implements a common interface - e.g. `State`.
+
+participants:
+
+- **context** (GumballMachine): The class that maintains an instance of the ConcreteState subclass and delegates state-specific requests to it.
+- state: defines an interface for encapsulating the behaviour associated with a particular state of the context.
+- concretestate: each subclass implements a behaviour associated with a state of the Context
+
+### collaboration
+
+- context delegates state-specific requests to the current ConcreteState object.
+- the state objects then handle the logic for state transitions and behaviours. gumballmachine can change its current state by setting a new concretestate as its field.
+- a context (gumballmachine) can pass itself as an argument to the state object handling the request. this lets the state object access the context if it is necessary.
+- context is the primary interface for clients. clients can configure a context with State objects - one a context is configured, clients don't ever have to directly deal with the state objects.
+
+## designing the gumball state interface
+
+we have to identify methods which will change the state, and then split them into concrete states.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/co.png" width="auto" height="auto">
+</p>
+
+then we have to connect it to the context, which is the gumball machine. this is a field/attribute of the object, e.g. when a client tries to insert a quarter, this is delegated to the state object's insertQuarter method.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/cor.png" width="auto" height="auto">
+</p>
+
+### implementing a state
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/plo.png" width="auto" height="auto">
+</p>
+
+very simple implementing a state. will set the state of the machine to another state.
+
+### implementing the context
+
+the context will need an object to represent each state. only one copy needed for each state. a variable keeps the current state.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/uug.png" width="auto" height="auto">
+</p>
