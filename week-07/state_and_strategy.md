@@ -135,3 +135,58 @@ the context will need an object to represent each state. only one copy needed fo
 <p align="center">
     <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/uug.png" width="auto" height="auto">
 </p>
+
+for state its just like
+
+```java
+public void insertQuarter(){
+  state.insertQuarter();
+}
+```
+
+common requests such as refill() cna be implemented inside the context.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/bia.png" width="auto" height="auto">
+</p>
+
+### considerations for the state pattern
+
+- who defines state transition?
+- one transition is implemented in the context, but most state transitions are inside the individual state subclass
+
+### creating and destroying state objects
+
+can create State object only when they are needed and destroy after, or create them ahead of time and keep them
+
+only one copy of each state subclass object is needed - using singleton is a possible approach.
+
+- however state object needs to hold a copy of the context object. parameterised singleton constructor is a way to do it but less common
+
+we can include passing the context as a method argument
+
+```java
+public interface State {
+  public void insertQuarter(GumballMachine gm);
+  public void ejectQuarter(GumballMachine gm);
+  ...
+}
+```
+
+for further reference please check the slides. they used an enum and stuff. should check this
+
+## strategy pattern
+
+pull out common behaviours, such as fly or quack behaviour into FlyBehaviour and QuackBehaviour interface.think of each set of behaviours as a family of algorithms.
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/stra.png" width="auto" height="auto">
+</p>
+
+### structure
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/000.png" width="auto" height="auto">
+</p>
+
+intent: define a pattern of algorithms, encapsulate each and make them interchangeable. strategy lets the algorithm vary independently from clients that use it.
