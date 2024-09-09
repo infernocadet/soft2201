@@ -49,4 +49,23 @@ caretaker: this class is responsible for keeping the memento - never operates or
 
 ## state pattern
 
-the <mark>state pattern</mark> is a behavioural
+the state pattern is a behavioural design pattern which allows an object to change its behaviour when its internal state changes. useful when an object has multiple states - with different behaviours and it can transition from one state to another.
+
+the object's field value or value combination could determine its behaviour. each meaningful value or value combination can be referred to as a state
+
+each state is represented by a separate class - state transition is handled by the context class.
+
+think of a gumball machine as an example: it has different states depending on the internal conditions.
+
+- NoQuarterState: No quarter has been inserted
+- HasQuarterState: A quarter has been inserted
+- SoldOutState: the machine is out of gumballs
+- SoldState: a gumball has been dispensed
+
+### in the gumball
+
+there are three important states that we can see with this
+
+<p align="center">
+    <img src="https://github.com/infernocadet/soft2201/blob/main/mdgraphics/gst.png" width="auto" height="auto">
+</p>
