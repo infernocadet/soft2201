@@ -190,3 +190,13 @@ pull out common behaviours, such as fly or quack behaviour into FlyBehaviour and
 </p>
 
 intent: define a pattern of algorithms, encapsulate each and make them interchangeable. strategy lets the algorithm vary independently from clients that use it.
+
+## tutorial notes
+
+behavioural patterns focus on how objects interact and manage responsibilities, which allow for dynamic behaviour changes through abstraction and encapsulation.
+
+patterns like State and Strategy enable objects to adjust behaviour based on internal state or algorithmic choices.
+
+### strategy pattern
+
+a key aspect of the behavioural pattern is that it encapsulates the information needed to vary behaviour. in the strategy pattern, the choice of algorithm (or method, essentially), is determined at runtime, where the decision of algorithm is managed by the invoking method.
